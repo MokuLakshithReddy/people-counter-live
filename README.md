@@ -1,5 +1,8 @@
 # HeadCount — Browser-Based People Counter
 
+[![Forks](https://img.shields.io/github/forks/MokuLakshithReddy/people-counter-live?style=flat-square)](https://github.com/MokuLakshithReddy/people-counter-live/forks) [![Open Issues](https://img.shields.io/github/issues/MokuLakshithReddy/people-counter-live?style=flat-square)](https://github.com/MokuLakshithReddy/people-counter-live/issues)
+
+
 HeadCount is a browser dashboard prototype that uses a webcam and the TensorFlow.js COCO-SSD object-detection model to identify visible people in a camera frame. It draws person bounding boxes, shows a live count, tracks the session peak, and records count changes in a local on-screen log.
 
 [![React](https://img.shields.io/badge/React-18-61DAFB?logo=react&logoColor=111)](https://react.dev/)
