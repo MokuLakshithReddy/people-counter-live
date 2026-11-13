@@ -2,10 +2,11 @@
 
 A browser-based people-counting prototype that uses a webcam stream and TensorFlow.js COCO-SSD object detection to count visible people in real time.
 
-![GitHub stars](https://img.shields.io/github/stars/MokuLakshithReddy/people-counter-live?style=flat-square&label=stars)
-![Last commit](https://img.shields.io/github/last-commit/MokuLakshithReddy/people-counter-live?style=flat-square)
-![React](https://img.shields.io/badge/React-18-61DAFB?logo=react&logoColor=black)
-![TensorFlow.js](https://img.shields.io/badge/TensorFlow.js-4.22-FF6F00?logo=tensorflow&logoColor=white)
+[![Stars](https://img.shields.io/github/stars/MokuLakshithReddy/people-counter-live?style=flat-square)](https://github.com/MokuLakshithReddy/people-counter-live/stargazers)
+[![Last commit](https://img.shields.io/github/last-commit/MokuLakshithReddy/people-counter-live?style=flat-square)](https://github.com/MokuLakshithReddy/people-counter-live/commits/main)
+[![React](https://img.shields.io/badge/React-18-61DAFB?logo=react&logoColor=black)](https://react.dev/)
+[![TensorFlow.js](https://img.shields.io/badge/TensorFlow.js-4.22-FF6F00?logo=tensorflow&logoColor=white)](https://www.tensorflow.org/js)
+[![COCO-SSD](https://img.shields.io/badge/Model-COCO--SSD-4285F4)](https://github.com/tensorflow/tfjs-models/tree/master/coco-ssd)
 
 ## Why it matters
 
@@ -15,32 +16,23 @@ Manual headcounts are slow and difficult to repeat in busy spaces. HeadCount dem
 
 ```mermaid
 flowchart TD
-    A["User grants browser camera permission"] --> B["Webcam video stream"]
-    B --> C["TensorFlow.js runtime"]
-    C --> D["COCO-SSD object detector"]
-    D --> E["Keep detections labelled person"]
-    E --> F["Apply confidence threshold (> 0.5)"]
-    F --> G["Draw bounding boxes and confidence"]
-    F --> H["Update live count"]
-    H --> I["Track session peak and count-change log"]
+    A["User opens HeadCount"] --> B["Browser requests camera permission"]
+    B --> C["Camera stream via MediaDevices"]
+    C --> D["TensorFlow.js + COCO-SSD"]
+    D --> E["Filter detections: class = person, score > 0.5"]
+    E --> F["Draw bounding boxes and confidence labels"]
+    E --> G["Update current and peak counts"]
+    G --> H["Append count changes to session log"]
 ```
 
-## Current capabilities
+## Current features
 
-- Starts a webcam stream using the browser's `getUserMedia` API.
-- Loads COCO-SSD through TensorFlow.js in the browser.
-- Counts detections classified as `person` when the model score is above `0.5`.
-- Draws detection bounding boxes and confidence labels over the video.
-- Shows the current count, session peak, and a time-stamped log of count changes.
-- Includes a dark-mode toggle and responsive layout.
-
-## Privacy and limitations
-
-- Camera access requires explicit browser permission.
-- The current detector runs in the client; the inspected detection flow does not upload or persist video.
-- This is a single-camera prototype, not a calibrated occupancy or access-control system.
-- Detection quality and frame rate depend on lighting, camera angle, occlusion, and the device running the model.
-- The confidence threshold is a code setting, not a guarantee of counting accuracy.
+- Browser camera capture through the MediaDevices API (640 × 480 requested).
+- In-browser COCO-SSD model loading via TensorFlow.js.
+- Person-only detections with a confidence threshold greater than 0.5.
+- Canvas overlay with bounding boxes and confidence labels.
+- Live count, session peak, and a rolling list of up to 100 count-change log entries.
+- Light/dark theme toggle and responsive dashboard layout.
 
 ## Technology
 
@@ -48,12 +40,14 @@ React 18 · TypeScript · Vite · TensorFlow.js · COCO-SSD · Tailwind CSS · s
 
 ## Run locally
 
+Requirements: Node.js and npm, plus a modern browser with camera access.
+
 ```bash
 npm install
 npm run dev
 ```
 
-Allow camera access when the browser prompts you.
+Open the Vite development URL and allow camera access when prompted. Camera permission is required for detection.
 
 ## Build and tests
 
@@ -63,7 +57,12 @@ npm test
 npm run lint
 ```
 
-These commands are defined in `package.json`; no public accuracy, latency, or multi-camera benchmark is currently published.
+## Privacy and limitations
+
+- The current implementation obtains a camera stream in the browser and runs the model in the client. Do not deploy it in spaces where people have not been informed and given appropriate notice.
+- The repository code shown here does not persist video or create identity profiles; the log stores timestamps and counts in the current UI session.
+- Counts are model detections, not a calibrated occupancy measurement. Occlusion, camera angle, lighting, crowd density, and device performance can affect results.
+- No labelled evaluation dataset, precision/recall benchmark, or count-accuracy study is currently published.
 
 ## Repository
 
