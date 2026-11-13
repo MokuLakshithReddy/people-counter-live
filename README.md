@@ -1,5 +1,8 @@
 # HeadCount — Live People Counter
 
+[![Forks](https://img.shields.io/github/forks/MokuLakshithReddy/people-counter-live?style=flat-square)](https://github.com/MokuLakshithReddy/people-counter-live/forks)
+[![Open Issues](https://img.shields.io/github/issues/MokuLakshithReddy/people-counter-live?style=flat-square)](https://github.com/MokuLakshithReddy/people-counter-live/issues)
+
 A browser-based people-counting prototype that uses a webcam stream and TensorFlow.js COCO-SSD object detection to count visible people in real time.
 
 [![Stars](https://img.shields.io/github/stars/MokuLakshithReddy/people-counter-live?style=flat-square)](https://github.com/MokuLakshithReddy/people-counter-live/stargazers)
