@@ -1,73 +1,70 @@
-# Welcome to your Lovable project
+# HeadCount — Live People Counter
 
-## Project info
+A browser-based people-counting prototype that uses a webcam stream and TensorFlow.js COCO-SSD object detection to count visible people in real time.
 
-**URL**: https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID
+![GitHub stars](https://img.shields.io/github/stars/MokuLakshithReddy/people-counter-live?style=flat-square&label=stars)
+![Last commit](https://img.shields.io/github/last-commit/MokuLakshithReddy/people-counter-live?style=flat-square)
+![React](https://img.shields.io/badge/React-18-61DAFB?logo=react&logoColor=black)
+![TensorFlow.js](https://img.shields.io/badge/TensorFlow.js-4.22-FF6F00?logo=tensorflow&logoColor=white)
 
-## How can I edit this code?
+## Why it matters
 
-There are several ways of editing your application.
+Manual headcounts are slow and difficult to repeat in busy spaces. HeadCount demonstrates a lightweight, camera-based workflow that detects people, updates a live count, and keeps a short session history.
 
-**Use Lovable**
+## How it works
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and start prompting.
+```mermaid
+flowchart TD
+    A["User grants browser camera permission"] --> B["Webcam video stream"]
+    B --> C["TensorFlow.js runtime"]
+    C --> D["COCO-SSD object detector"]
+    D --> E["Keep detections labelled person"]
+    E --> F["Apply confidence threshold (> 0.5)"]
+    F --> G["Draw bounding boxes and confidence"]
+    F --> H["Update live count"]
+    H --> I["Track session peak and count-change log"]
+```
 
-Changes made via Lovable will be committed automatically to this repo.
+## Current capabilities
 
-**Use your preferred IDE**
+- Starts a webcam stream using the browser's `getUserMedia` API.
+- Loads COCO-SSD through TensorFlow.js in the browser.
+- Counts detections classified as `person` when the model score is above `0.5`.
+- Draws detection bounding boxes and confidence labels over the video.
+- Shows the current count, session peak, and a time-stamped log of count changes.
+- Includes a dark-mode toggle and responsive layout.
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+## Privacy and limitations
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+- Camera access requires explicit browser permission.
+- The current detector runs in the client; the inspected detection flow does not upload or persist video.
+- This is a single-camera prototype, not a calibrated occupancy or access-control system.
+- Detection quality and frame rate depend on lighting, camera angle, occlusion, and the device running the model.
+- The confidence threshold is a code setting, not a guarantee of counting accuracy.
 
-Follow these steps:
+## Technology
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+React 18 · TypeScript · Vite · TensorFlow.js · COCO-SSD · Tailwind CSS · shadcn/ui
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+## Run locally
 
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
+```bash
+npm install
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+Allow camera access when the browser prompts you.
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+## Build and tests
 
-**Use GitHub Codespaces**
+```bash
+npm run build
+npm test
+npm run lint
+```
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+These commands are defined in `package.json`; no public accuracy, latency, or multi-camera benchmark is currently published.
 
-## What technologies are used for this project?
+## Repository
 
-This project is built with:
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+[Browse the source](https://github.com/MokuLakshithReddy/people-counter-live)
